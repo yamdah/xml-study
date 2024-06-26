@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <information>
+        <account>
+            <name>TANAKA1</name>
+            <amount>120000</amount>
+        </account>
+        <account>
+            <name>TANAKA2</name>
+            <amount>65020</amount>
+        </account>
+        <account>
+            <name>TANAKA3</name>
+            <amount>2000500</amount>
+        </account>
+    </information>
+</person>

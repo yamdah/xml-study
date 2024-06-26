@@ -15,6 +15,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 		parseData1();
 		parseData2();
+		parseData3();
 	}
 
 	private static void parseData1() throws Exception {
@@ -32,7 +33,6 @@ public class Main {
 			Element element = (Element) nodeList.item(i);
 			System.out.println(element.getTagName());
 			System.out.println(element.getTextContent());
-			
 		}
 	}
 
@@ -46,14 +46,35 @@ public class Main {
 		XPathExpression expr = xpath.compile("//telephone/number");
 		NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
 		System.out.println(nodeList.getLength());
+		int thirdCount = nodeList.getLength() - 1;
 
 		for (int i = 0; i < nodeList.getLength(); i++) {
-			int thirdCount = nodeList.getLength() - 1;
 			Element element = (Element) nodeList.item(i);
 			System.out.print(element.getTextContent());
 			if(i != thirdCount) {
 				System.out.print("-");
 			}
-			}
+		}
+		System.out.println("");
+	}
+
+	private static void parseData3() throws Exception {
+		FileInputStream is = new FileInputStream("amount.xml");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(is);
+
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		XPathExpression expr = xpath.compile("//account/amount");
+		NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+		int totalAmount = 0;
+		
+		for (int i = 0; i < nodeList.getLength(); i++) {
+				Element element = (Element) nodeList.item(i);
+				String amount1 = element.getTextContent();
+				int amount2 = Integer.parseInt(amount1);
+				totalAmount += amount2;
+		}
+		System.out.println(String.format("%,d", totalAmount));
 	}
 }
