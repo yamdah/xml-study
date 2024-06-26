@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+  <list>
+    <book>
+      <name>ABC</name>
+      <id>123456</id>
+    </book>
+    <book>
+      <name>XYZ</name>
+      <id>98765</id>
+    </book>
+  </list>
+</books>
