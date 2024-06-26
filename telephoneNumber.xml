@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <information>
+        <telephone>
+            <name>number-1</name>
+            <number>123</number>
+        </telephone>
+        <telephone>
+            <name>number-2</name>
+            <number>456</number>
+        </telephone>
+        <telephone>
+            <name>number-3</name>
+            <number>789</number>
+        </telephone>
+    </information>
+</person>

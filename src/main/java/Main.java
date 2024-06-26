@@ -1,11 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,49 +13,11 @@ import org.w3c.dom.NodeList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-		List<String> inputList = readFileInput();
-		for(String str : inputList){
-			System.out.println(str);
-		}
-		
-		String input = "";
-		input = readSystemInput();
-		System.out.println(input);
-        
-		parseData();
+		parseData1();
+		parseData2();
 	}
 
-	private static List<String> readFileInput() throws FileNotFoundException {
-		List<String> inputList = new ArrayList<>();
-		try(FileInputStream fis = new FileInputStream(new File("input.txt"));
-		    	BufferedReader br = new BufferedReader(new InputStreamReader(fis))){
-			String str;
-			while((str = br.readLine()) != null){
-				inputList.add(str);
-			}			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return inputList;
-	}
-
-	private static String readSystemInput() throws IOException {
-		StringBuilder s = new StringBuilder();
-		System.out.println("番号を入力してください。");
-		System.out.print(">");
-		while(true){
-			char c = (char)System.in.read();
-			if (c == '\n') {
-				break;
-			}
-			s.append(c);
-		}
-		return s.toString();
-	}
-
-    
-	private static void parseData() throws Exception {
+	private static void parseData1() throws Exception {
 		FileInputStream is = new FileInputStream("bookList.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
@@ -79,5 +34,22 @@ public class Main {
 			System.out.println(element.getTextContent());
 			
 		}
+	}
+
+	private static void parseData2() throws Exception {
+		FileInputStream is = new FileInputStream("telephoneNumber.xml");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(is);
+		
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		XPathExpression expr = xpath.compile("//telephone/number");
+		NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+		System.out.println(nodeList.getLength());
+
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Element element = (Element) nodeList.item(i);
+			System.out.print(element.getTextContent());
+			}
 	}
 }
