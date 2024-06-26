@@ -48,8 +48,12 @@ public class Main {
 		System.out.println(nodeList.getLength());
 
 		for (int i = 0; i < nodeList.getLength(); i++) {
+			int thirdCount = nodeList.getLength() - 1;
 			Element element = (Element) nodeList.item(i);
 			System.out.print(element.getTextContent());
+			if(i != thirdCount) {
+				System.out.print("-");
+			}
 			}
 	}
 }
