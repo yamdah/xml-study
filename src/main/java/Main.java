@@ -1,4 +1,8 @@
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,9 +17,22 @@ import org.w3c.dom.NodeList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+		List<String> inputList = new ArrayList<>();
+		FileOutputStream os = new FileOutputStream("output.csv");
+		OutputStreamWriter sw = new OutputStreamWriter(os);
+		
+		for (String str : parseData2()) {
+			sw.write("電話番号");
+			sw.write(str);
+		}
+		sw.flush();
+		sw.close();
+
 		parseData1();
 		parseData2();
 		parseData3();
+
+		
 	}
 
 	private static void parseData1() throws Exception {
@@ -36,7 +53,7 @@ public class Main {
 		}
 	}
 
-	private static void parseData2() throws Exception {
+	private static List<String> parseData2() throws Exception {
 		FileInputStream is = new FileInputStream("telephoneNumber.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
@@ -56,6 +73,23 @@ public class Main {
 			}
 		}
 		System.out.println("");
+
+		List<String> returnList = new ArrayList();
+		String telephoneNumber = null;
+		for (int i = 0; i < nodeList.getLength(); i++) {
+				Element element = (Element) nodeList.item(i);
+				if (telephoneNumber == null) {
+					telephoneNumber = element.getTextContent();
+				} else {
+					telephoneNumber += element.getTextContent();
+				}
+				if (i != thirdCount) {
+					telephoneNumber += "-";
+				}
+		}
+		returnList.add(telephoneNumber);
+
+		return returnList;
 	}
 
 	private static void parseData3() throws Exception {
