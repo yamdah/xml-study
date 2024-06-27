@@ -23,16 +23,20 @@ public class Main {
 		
 		for (String str : parseData2()) {
 			sw.write("電話番号");
+			sw.write(',');
 			sw.write(str);
+			sw.write("\n");
 		}
+		
+		String returnStr3 = "\"" + parseData3() + "\"";
+		sw.write("合計金額");
+		sw.write(',');
+		sw.write(returnStr3);
+
 		sw.flush();
 		sw.close();
 
-		parseData1();
-		parseData2();
-		parseData3();
-
-		
+		parseData1();	
 	}
 
 	private static void parseData1() throws Exception {
@@ -53,6 +57,7 @@ public class Main {
 		}
 	}
 
+	// 電話番号をXMLファイルから取得する
 	private static List<String> parseData2() throws Exception {
 		FileInputStream is = new FileInputStream("telephoneNumber.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -65,6 +70,7 @@ public class Main {
 		System.out.println(nodeList.getLength());
 		int thirdCount = nodeList.getLength() - 1;
 
+		// 出力確認用
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Element element = (Element) nodeList.item(i);
 			System.out.print(element.getTextContent());
@@ -74,7 +80,7 @@ public class Main {
 		}
 		System.out.println("");
 
-		List<String> returnList = new ArrayList();
+		List<String> returnList2 = new ArrayList();
 		String telephoneNumber = null;
 		for (int i = 0; i < nodeList.getLength(); i++) {
 				Element element = (Element) nodeList.item(i);
@@ -87,12 +93,13 @@ public class Main {
 					telephoneNumber += "-";
 				}
 		}
-		returnList.add(telephoneNumber);
+		returnList2.add(telephoneNumber);
 
-		return returnList;
+		return returnList2;
 	}
 
-	private static void parseData3() throws Exception {
+	// 合計金額をXMLファイルから取得する
+	private static String parseData3() throws Exception {
 		FileInputStream is = new FileInputStream("amount.xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
@@ -103,6 +110,7 @@ public class Main {
 		NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
 		int totalAmount = 0;
 		
+		// 出力確認用
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Element element = (Element) nodeList.item(i);
 			String amount1 = element.getTextContent();
@@ -110,5 +118,8 @@ public class Main {
 			totalAmount += amount2;
 		}
 		System.out.println(String.format("%,d", totalAmount));
+		String returnStr3 = String.format("%,d", totalAmount);
+
+		return returnStr3;
 	}
 }
