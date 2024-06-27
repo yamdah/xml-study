@@ -70,10 +70,10 @@ public class Main {
 		int totalAmount = 0;
 		
 		for (int i = 0; i < nodeList.getLength(); i++) {
-				Element element = (Element) nodeList.item(i);
-				String amount1 = element.getTextContent();
-				int amount2 = Integer.parseInt(amount1);
-				totalAmount += amount2;
+			Element element = (Element) nodeList.item(i);
+			String amount1 = element.getTextContent();
+			int amount2 = Integer.parseInt(amount1);
+			totalAmount += amount2;
 		}
 		System.out.println(String.format("%,d", totalAmount));
 	}
