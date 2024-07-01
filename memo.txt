@@ -1,0 +1,28 @@
+<person>
+    <information>
+        <account>
+            <name>SATO1</name>
+            <amount>120000</amount>
+        </account>
+        <account>
+            <name>SATO2</name>
+            <amount>65020</amount>
+            <telephone>
+                <key>number-1</key>
+                <number>932</number>
+            </telephone>
+            <telephone>
+                <key>number-2</key>
+                <number>888</number>
+            </telephone>
+            <telephone>
+                <key>number-3</key>
+                <number>056</number>
+            </telephone>
+        </account>
+        <account>
+            <name>SATO3</name>
+            <amount>2000500</amount>
+        </account>
+    </information>
+</person>

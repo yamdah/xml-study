@@ -21,18 +21,21 @@ public class Main {
 		FileOutputStream os = new FileOutputStream("output.csv");
 		OutputStreamWriter sw = new OutputStreamWriter(os);
 		
-		for (String str : parseData2()) {
-			sw.write("電話番号");
+		String check = parseDataCheck();
+		System.out.println(check);
+		if (check == "true") {
+			for (String str : parseData2()) {
+				sw.write("電話番号");
+				sw.write(',');
+				sw.write(str);
+				sw.write("\n");
+			}
+	
+			String returnStr3 = "\"" + parseData3() + "\"";
+			sw.write("合計金額");
 			sw.write(',');
-			sw.write(str);
-			sw.write("\n");
+			sw.write(returnStr3);
 		}
-		
-		String returnStr3 = "\"" + parseData3() + "\"";
-		sw.write("合計金額");
-		sw.write(',');
-		sw.write(returnStr3);
-
 		sw.flush();
 		sw.close();
 
@@ -121,5 +124,24 @@ public class Main {
 		String returnStr3 = String.format("%,d", totalAmount);
 
 		return returnStr3;
+	}
+
+	private static String parseDataCheck() throws Exception {
+		FileInputStream is = new FileInputStream("informationList.xml");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(is);
+
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		XPathExpression checkExpr = xpath.compile("//flag");
+		NodeList checkNodeList = (NodeList) checkExpr.evaluate(document, XPathConstants.NODESET);
+		String boolstr = "";
+
+		for (int i = 0; i < checkNodeList.getLength(); i++) {
+			Element element = (Element) checkNodeList.item(i);
+			boolstr = element.getTextContent();
+		}
+
+		return boolstr;
 	}
 }
